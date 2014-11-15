@@ -1,5 +1,5 @@
 #pragma config(Hubs,  S1, HTMotor,  HTMotor,  HTMotor,  HTServo)
-#pragma config(Sensor, S1,     ,               sensorI2CMuxController)
+#pragma config(Sensor, S1,     touch,          sensorNone)
 #pragma config(Motor,  mtr_S1_C1_1,     leftDrive,     tmotorTetrix, openLoop, reversed)
 #pragma config(Motor,  mtr_S1_C1_2,     rightDrive,    tmotorTetrix, openLoop)
 #pragma config(Motor,  mtr_S1_C2_1,     conveior,      tmotorTetrix, openLoop)
@@ -27,7 +27,7 @@ task main()
 {
 	initializeRobot();
 
-	waitForStart();   // wait for start of tele-op phase
+	//waitForStart();   // wait for start of tele-op phase
 
 	while (true)
 	{
@@ -55,7 +55,7 @@ task main()
 		{
 			motor[harvester] = 100;
 		}
-		if(joy2Btn(6) == 0);
+		if(joy2Btn(6) == 0)
 		{
 			motor[harvester] = 0;
 		}
@@ -69,7 +69,7 @@ task main()
 		}
 		if(joy2Btn(7) == 1)
 		{
-			motor[[conveior] = 100;
+			motor[conveior] = 100;
 		}
 		if(joy2Btn(7) == 0)
 		{
@@ -79,9 +79,33 @@ task main()
 		{
 			motor[conveior] = 65;
 		}
-		if(joy2Btn(7) == 0)
+		if(joy2Btn(9) == 0)
 		{
 			motor[conveior] = 0;
+		}
+		if(joy2Btn(1) == 1)
+		{
+			motor[conveior] = -100;
+		}
+		if(joy2Btn(1) == 0)
+		{
+			motor[conveior] = 0;
+		}
+		while(joy1Btn(2) == 1)
+		{
+			motor[arm] = 100;
+		}
+		if(joy1Btn(2) == 0)
+		{
+			motor[arm] = 0;
+		}
+		while(joy1Btn(3) == 1)
+		{
+			motor[arm] = -100;
+		}
+		if(joy1Btn(3) == 0)
+		{
+			motor[arm] = 0;
 		}
 
 

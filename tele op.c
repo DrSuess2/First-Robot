@@ -1,8 +1,8 @@
 #pragma config(Hubs,  S1, HTMotor,  HTServo,  none,     none)
 #pragma config(Sensor, S1,     ,               sensorI2CMuxController)
-#pragma config(Motor,  mtr_S1_C1_1,     leftDrive,     tmotorTetrix, openLoop)
+#pragma config(Motor,  mtr_S1_C1_1,     leftDrive,     tmotorTetrix, openLoop, reversed)
 #pragma config(Motor,  mtr_S1_C1_2,     rightDrive,    tmotorTetrix, openLoop)
-#pragma config(Servo,  srvo_S1_C2_1,    goalGrabber,          tServoNone)
+#pragma config(Servo,  srvo_S1_C2_1,    goalGrabber,          tServoStandard)
 #pragma config(Servo,  srvo_S1_C2_2,    servo2,               tServoNone)
 #pragma config(Servo,  srvo_S1_C2_3,    servo3,               tServoNone)
 #pragma config(Servo,  srvo_S1_C2_4,    servo4,               tServoNone)
@@ -19,16 +19,21 @@ while(true)
 {
 	getJoystickSettings(joystick);
 
-	motor[rightDrive] = joystick.joy1_y1;
-	motor[leftDrive] = joystick.joy1_y2;
-
-	if(joystick.joy1_y1 > -5 && joystick.joy1_y1 < 5)
+	if(joystick.joy1_y1 > -15 && joystick.joy1_y1 < 15)
+	{
+		motor[leftDrive] = 0;
+	}
+	else
+	{
+		motor[leftDrive] = joystick.joy1_y1*0.5;
+	}
+	if(joystick.joy1_y2 > -15 && joystick.joy1_y2 < 15)
 	{
 		motor[rightDrive] = 0;
 	}
-	if(joystick.joy1_y2 > -5 && joystick.joy1_y2 < 5)
+	else
 	{
-		motor[leftDrive] = 0;
+		motor[rightDrive] = joystick.joy1_y2*0.5;
 	}
 
 
@@ -36,10 +41,10 @@ while(true)
 	{
 		servo[goalGrabber] = 200;
 	}
-	else
-	{
-		servo[goalGrabber] = 30;
-	}
+  if(joy1Btn(2) == 1)
+  {
+  	servo[goalGrabber] = 150;
+  }
 
 }
 
